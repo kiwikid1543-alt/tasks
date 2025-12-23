@@ -30,7 +30,7 @@
                 - Image
                 - Text
                 - Text
-        - Icon
+        - floatingActionButton
 
 
     #### bottom
