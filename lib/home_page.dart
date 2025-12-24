@@ -39,6 +39,20 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void toggleDone(int index) {
+    //할일 완료
+    setState(() {
+      todoList[index].isDone = !todoList[index].isDone;
+    });
+  }
+
+  void toggleFavorite(int index) {
+    //즐겨찾기
+    setState(() {
+      todoList[index].isFavorite = !todoList[index].isFavorite;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,6 +60,7 @@ class _HomePageState extends State<HomePage> {
         FocusScope.of(context).unfocus(); //  빈 화면 누르면 키보드 닫히게, 이거 없어도 왜 닫히나?
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         floatingActionButton: FloatingActionButton(
           //
           shape: CircleBorder(),
@@ -80,7 +95,11 @@ class _HomePageState extends State<HomePage> {
             todoList.isEmpty
                 ? NotTodo(appName: appName)
                 // ToDo 추가된 화면 만들기
-                : TodoView(todoList: todoList),
+                : TodoView(
+                    todoList: todoList,
+                    toggleFavorite: toggleFavorite,
+                    toggleDone: toggleDone,
+                  ),
           ],
         ),
       ),

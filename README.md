@@ -49,4 +49,21 @@
 - 아이콘은 흰색, 사이즈 24, 배경은 원하는 색상, 버튼 모양은 원형 적용
 - 눌렀을 때 작동 될 addTodo 함수 작성 및 위젯에 연결
 
+5. To Do가 추가 된 화면 만들기
 
+- ToDoEntity 를 인자로 받는 ToDoView 위젯 만들기 
+   - 마진 수직 8, 패딩 수평 16, 라운딩 12, 내부 요소들 간 간격 12으로 구현
+      - Icon(circle & check_circle) : 버튼이 눌렸을 때 Done 상태 변경
+      - 텍스트(To Do의 title) : Done 상태에 따라서 취소선 상태 적용
+      - Icon(star & star_border) : 버튼이 눌렸을 때 Favorite 상태 변경
+   - ToDo 객체를 외부에서 받아오므로, 이를 수정할 수 있는 함수 또한 외부에서 받아야 합니다.
+     (VoidCallback 을 인자로 받으세요!)
+- To Do가 없을 때는 처음 만들었던 NoToDo(3번에서 만든 위젯)를, 
+   있을 때는 ToDoView가 리스트 뷰를 이용해서 화면에 표시되도록 구현
+
+6. To Do 상세 보기 화면 만들기
+
+- AppBar에 leading과 actions 사용하기
+- back button을 통해서 뒤로가기 구현하기
+- favorite 변경 구현하기(현재 페이지, 뒤로 간 페이지 모두 반영되어야 합니다.)
+- ToDoEntity를 받아서 화면 컨텐츠 채우기

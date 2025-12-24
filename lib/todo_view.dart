@@ -4,9 +4,16 @@ import 'package:tasks/to_do_widgets.dart';
 import 'package:tasks/todo_entity.dart';
 
 class TodoView extends StatelessWidget {
-  const TodoView({super.key, required this.todoList});
+  const TodoView({
+    super.key,
+    required this.todoList,
+    required this.toggleFavorite,
+    required this.toggleDone,
+  });
 
   final List<TodoEntity> todoList;
+  final void Function(int) toggleFavorite;
+  final void Function(int) toggleDone;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +29,26 @@ class TodoView extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return DetailTodo();
+                    return DetailTodo(
+                      todoList: todoList,
+                      index: index,
+                      onToggleFavorite: () {
+                        toggleFavorite(index);
+                      },
+                    );
                   },
                 ),
               );
             },
-            child: ToDoWidgets(todo: todoList[index]),
+            child: ToDoWidgets(
+              todo: todoList[index],
+              onToggleFavorite: () {
+                toggleFavorite(index);
+              },
+              onToggleDone: () {
+                toggleDone(index);
+              },
+            ),
           );
         },
       ),

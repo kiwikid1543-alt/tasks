@@ -9,8 +9,8 @@ class TodoEntity extends StatelessWidget {
   });
   final String? title;
   final String? description;
-  final bool isFavorite;
-  final bool isDone;
+  bool isFavorite;
+  bool isDone;
 
   @override
   Widget build(BuildContext context) {

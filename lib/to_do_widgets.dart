@@ -2,9 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:tasks/todo_entity.dart';
 
 class ToDoWidgets extends StatelessWidget {
-  ToDoWidgets({super.key, required this.todo}); // const 빼야하나?
+  ToDoWidgets({
+    super.key,
+    required this.todo,
+    required this.onToggleFavorite,
+    required this.onToggleDone,
+  }); // const 빼야하나?
 
   final TodoEntity todo;
+  final VoidCallback onToggleFavorite;
+  final VoidCallback onToggleDone;
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +31,42 @@ class ToDoWidgets extends StatelessWidget {
       child: Row(
         children: [
           // 아이콘과 텍스트 가로로 배치되어 있음
-          Container(
-            //체크하는 동그라미
-            width: 24,
-            height: 24,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(color: Colors.black, width: 2),
+          GestureDetector(
+            onTap: () {
+              onToggleDone();
+            },
+            child: Container(
+              //체크하는 동그라미
+              width: 24,
+              height: 24,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.black, width: 2),
 
-              color: todo.isDone ? Colors.black : null, //삼항연산자
+                color: todo.isDone ? Colors.black : null, //삼항연산자
+              ),
+              child: todo.isDone
+                  ? Icon(Icons.check, color: Colors.grey.shade300, size: 20)
+                  : null,
             ),
-            child: todo.isDone
-                ? Icon(Icons.check, color: Colors.grey.shade300, size: 20)
-                : null,
           ),
           SizedBox(width: 20),
           Expanded(
-            child: Text(todo.title ?? '-'),
+            child: Text(
+              todo.title ?? '-',
+              style: TextStyle(
+                decoration: todo.isDone
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
+              ),
+            ),
           ), // 글자 안넘치게 방지하기 위해 expanded 사용
-          GestureDetector(onTap: () {}, child: Icon(Icons.star_border)),
+          GestureDetector(
+            onTap: () {
+              onToggleFavorite();
+            },
+            child: todo.isFavorite ? Icon(Icons.star) : Icon(Icons.star_border),
+          ),
         ],
       ),
     );
